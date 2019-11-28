@@ -1,0 +1,18 @@
+Есть три таблицы
+
+Таблица продуктов
+Products
+productID, name, amount, price
+
+Таблица категорий
+Categories
+categoryID, name
+
+Таблица их связей
+ProductCategories
+productcategoryID, productID, categoryID
+
+Запрос выводящий пары «Имя продукта – Имя категории» и Имена продуктов без категорий.
+Select Products.name as Product, Categories.name as Category from Products, Categories where 1=(Select count(distinct ProductCategories.productID) from ProductCategories where ProductCategories.productID = Products.productID and ProductCategories.categoryID = Categories.categoryID)
+Union
+Select Products.name as Product, " " as Category from Products where 0=(Select count(ProductCategories.productID) from ProductCategories where Products.productID=ProductCategories.productID)
